@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 1;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -38,7 +38,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "calc", "-g", "61x41","-e", "python", NULL };
-const char *spcmd2[] = {"st", "-n", "fm", "-g", "144x41", "-e", "ranger", NULL };
+const char *spcmd2[] = {"st", "-n", "fm", "-g", "144x41", "-e", "lfrun", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"calc",      spcmd1},
@@ -57,8 +57,8 @@ static const Rule rules[] = {
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
-	{ NULL,		 "calc",   NULL,	       SPTAG(0),  1,		  1,           0, 	     -1 },
-	{ NULL,		 "fm",	   NULL,		   SPTAG(1),  1,		  1,	       0,        -1 }
+	{ NULL,		 "calc",   NULL,	       SPTAG(0),  1,		  1,           1, 	     -1 },
+	{ NULL,		 "fm",	   NULL,		   SPTAG(1),  1,		  1,	       1,        -1 }
 };
 
 /* layout(s) */
@@ -156,7 +156,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
