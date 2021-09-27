@@ -24,10 +24,12 @@ typedef struct {
 } Sp;
 const char *spcmd1[] = {"st", "-n", "calc", "-g", "61x41","-e", "python", NULL };
 const char *spcmd2[] = {"st", "-n", "fm", "-g", "144x41", "-e", "ranger", NULL };
+const char *spcmd2[] = {"st", "-n", "task", "-g", "144x41", "-e", "task", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"calc",      spcmd1},
 	{"fm",    spcmd2},
+	{"task",    spcmd2},
 };
 
 /* tagging */
@@ -42,6 +44,7 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,			NULL,		1 << 8,			0,			 -1 },
 	{ NULL,		  "calc",		NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "fm",		    NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "task",		    NULL,		SPTAG(1),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -101,6 +104,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ShiftMask,            	XK_f,  	   togglescratch,  {.ui = 1 } },
 	{ MODKEY|ShiftMask,            	XK_c,	   togglescratch,  {.ui = 0 } },
+	{ MODKEY|ShiftMask,            	XK_t,	   togglescratch,  {.ui = 3 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
