@@ -175,6 +175,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,            	XK_c,	   togglescratch,  {.ui = 0 } },
 	//{ MODKEY|ShiftMask,            	XK_t,	   togglescratch,  {.ui = 3 } },
 	{ MODKEY|Mod4Mask,            	XK_t,	   togglescratch,  {.ui = 3 } },
+    { MODKEY|ControlMask,           XK_j,      pushdown,       {0} },
+	{ MODKEY|ControlMask,           XK_k,      pushup,         {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
