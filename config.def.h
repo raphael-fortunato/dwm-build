@@ -12,11 +12,11 @@ static const unsigned int gappiv    = 10;       /* vert inner gap between window
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "UbuntuMono Nerd Font Mono:size=14 ", "Mononoki Nerd Font:pixelsize=16" ,"monospace:size=14"};
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=12 ", "Mononoki Nerd Font:pixelsize=16" ,"monospace:size=14"};
+static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=12";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -40,11 +40,15 @@ typedef struct {
 const char *spcmd1[] = {"st", "-n", "calc", "-g", "61x41","-e", "python", NULL };
 const char *spcmd2[] = {"st", "-n", "fm", "-g", "144x41", "-e", "lfrun", NULL };
 const char *spcmd3[] = {"st", "-n", "term", "-g", "120x34", NULL };
+const char *spcmd4[] = {"st", "-n", "neomutt", "-g", "200x50", "-e", "neomutt", NULL };
+const char *spcmd5[] = {"st", "-n", "task", "-g", "120x34", "-e sh -c", "task && exec zsh", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"calc",      spcmd1},
 	{"fm",    spcmd2},
 	{"term",    spcmd3},
+	{"mutt",    spcmd4},
+	{"task",    spcmd5},
 };
 
 /* tagging */
@@ -55,13 +59,15 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask   isfloating isterm        noswallow    monitor */
-    { "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+    { "Gimp",    NULL,     NULL,           0,         1,          0,           1,        -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,           1,        -1 },
+	{ "St",      NULL,     NULL,           0,         0,          1,           1,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
-	{ NULL,		 "calc",   NULL,	       SPTAG(0),  1,		  1,           1, 	     -1 },
-	{ NULL,		 "fm",	   NULL,		   SPTAG(1),  1,		  1,	       1,        -1 },
-	{ NULL,		 "term",   NULL,		   SPTAG(2),  1,		  1,           1,   	 -1 },
+	{ NULL,		 "calc",   NULL,	       SPTAG(0),  1,		  1,           0, 	     -1 },
+	{ NULL,		 "fm",	   NULL,		   SPTAG(1),  1,		  0,	       0,        -1 },
+	{ NULL,		 "term",   NULL,		   SPTAG(2),  1,		  1,           0,   	 -1 },
+	{ NULL,		 "mutt",   NULL,		   SPTAG(3),  1,		  1,           0,   	 -1 },
+	{ NULL,		 "task",   NULL,		   SPTAG(4),  1,		  1,           0,   	 -1 },
 };
 
 /* layout(s) */
@@ -171,9 +177,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,            	XK_f,  	   togglescratch,  {.ui = 1 } },
 	{ MODKEY|ShiftMask,            	XK_c,	   togglescratch,  {.ui = 0 } },
-	{ MODKEY|ShiftMask,           	XK_t,	   togglescratch,  {.ui = 2 } },
+	{ MODKEY|ShiftMask,            	XK_f,  	   togglescratch,  {.ui = 1 } },
+	{ MODKEY|ShiftMask,           	XK_s,	   togglescratch,  {.ui = 2 } },
+	{ MODKEY|ShiftMask,           	XK_n,	   togglescratch,  {.ui = 3 } },
+	{ MODKEY|ShiftMask,           	XK_t,	   togglescratch,  {.ui = 4 } },
     { MODKEY|ShiftMask,           XK_j,      pushdown,       {0} },
 	{ MODKEY|ShiftMask,           XK_k,      pushup,         {0} },
 	TAGKEYS(                        XK_1,                      0)
